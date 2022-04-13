@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.animals.animalsdemo.mapper.UserDoMapper">
+    <resultMap id="BaseResultMap" type="com.animals.animalsdemo.dbdo.UserDO">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="account" jdbcType="VARCHAR" property="account" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone" />
+        <result column="flg" jdbcType="INTEGER" property="flg" />
+        <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+        <result column="version" jdbcType="INTEGER" property="version" />
+        <result column="enabled" jdbcType="BIT" property="enabled" />
+    </resultMap>
+
+   <sql id="selectColumn">
+       id,account,user_name,password,mobile_phone,enabled,flg,create_by,create_date,update_by,update_date,version
+   </sql>
+
+    <insert id="addUser" parameterType="com.animals.animalsdemo.dbdo.UserDO">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="account != null">
+                account,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="mobilePhone != null">
+                mobile_phone,
+            </if>
+            <if test="flg != null">
+                flg,
+            </if>
+            <if test="enabled != null">
+                enabled,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="account != null">
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="mobilePhone != null">
+                #{mobilePhone,jdbcType=VARCHAR},
+            </if>
+            <if test="flg != null">
+                #{flg,jdbcType=INTEGER},
+            </if>
+            <if test="enabled != null">
+                #{enabled},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="findByAccountAndFlg" resultMap="BaseResultMap">
+        select <include refid="selectColumn"/> from user where account = #{account} and flg = #{flg}
+    </select>
+
+    <select id="listByCondition" resultMap="BaseResultMap">
+        select <include refid="selectColumn"/> from user
+        <where>
+            <if test="account != null and account != ''">
+              and   account = #{account}
+            </if>
+            <if test="enabled != null and enabled != ''">
+              and   enabled = #{enabled}
+            </if>
+
+            <if test="password != null and password != ''">
+              and  password = #{password}
+            </if>
+
+            <if test="flg != null">
+                and  flg = #{flg}
+            </if>
+
+            <if test="createBy != null and createBy != ''">
+                and  create_by = #{createBy}
+            </if>
+
+            <if test="createDate != null">
+                and  create_date = #{createDate}
+            </if>
+
+            <if test="updateBy != null and updateBy != ''">
+                and  update_by = #{updateBy}
+            </if>
+
+            <if test="updateDate != null">
+                and  update_date = #{updateDate}
+            </if>
+
+            <if test="version != null and version != ''">
+                and  version = #{version}
+            </if>
+        </where>
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select <include refid="selectColumn"/> from user
+      where id = #{id}
+    </select>
+    <update id="saveUserByAccountAndFlg" parameterType="com.animals.animalsdemo.dbdo.UserDO">
+        update user
+        set version = version +1
+            <if test="userName != null">
+              ,user_name = #{userName}
+            </if>
+            <if test="password != null">
+                ,password = #{password}
+            </if>
+            <if test="mobilePhone != null">
+                ,mobile_phone = #{mobilePhone}
+            </if>
+            <if test="updateBy != null">
+                ,update_by = #{updateBy}
+            </if>
+            <if test="updateDate != null">
+                ,update_date = #{updateDate}
+            </if>
+            where account = #{account} and flg = #{flg} and version = #{version}
+    </update>
+
+    <update id="saveUserById" parameterType="com.animals.animalsdemo.dbdo.UserDO">
+        update user
+        set version = version +1
+        <if test="userName != null">
+            ,user_name = #{userName}
+        </if>
+        <if test="enabled != null">
+            ,enabled = #{enabled}
+        </if>
+        <if test="password != null">
+            ,password = #{password}
+        </if>
+        <if test="mobilePhone != null">
+            ,mobile_phone = #{mobilePhone}
+        </if>
+        <if test="updateBy != null">
+            ,update_by = #{updateBy}
+        </if>
+        <if test="updateDate != null">
+            ,update_date = #{updateDate}
+        </if>
+        where id = #{id}
+    </update>
+    <select id="getUserPageCount" resultType="integer">
+        select count(1) from user where 1=1
+            <if test="userName != null and userName != ''">
+                and user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="mobilePhone != null and mobilePhone != ''">
+                and mobile_phone  = #{mobilePhone}
+            </if>
+            <if test="createDateStart != null">
+                and create_date >= #{createDateStart}
+            </if>
+            <if test="createDateEnd != null">
+                and create_date &lt;= #{createDateEnd}
+            </if>
+            <if test="updateDateStart != null">
+                and update_date >= #{updateDateStart}
+            </if>
+            <if test="updateDateEnd != null">
+                and update_date &lt;= #{updateDateEnd}
+            </if>
+    </select>
+
+    <select id="getUserPageInfo" resultMap="BaseResultMap">
+        select <include refid="selectColumn"/> from user where 1=1
+            <if test="userName != null and userName != ''">
+                and user_name like concat('%', #{userName}, '%')
+            </if>
+            <if test="mobilePhone != null and mobilePhone != ''">
+                and mobile_phone  = #{mobilePhone}
+            </if>
+            <if test="createDateStart != null">
+                and create_date >= #{createDateStart}
+            </if>
+            <if test="createDateEnd != null">
+                and create_date &lt;= #{createDateEnd}
+            </if>
+            <if test="updateDateStart != null">
+                and update_date >= #{updateDateStart}
+            </if>
+            <if test="updateDateEnd != null">
+                and update_date &lt;= #{updateDateEnd}
+            </if>
+        limit #{startIndex},#{pageSize}
+    </select>
+</mapper>

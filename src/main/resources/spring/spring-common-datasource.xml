@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       		           http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+        <bean id="springDataSourceDemo" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/animal?useSSL=false&amp;userUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="10"/>
+        <property name="minIdle" value="10"/>
+        <property name="maxActive" value="30"/>
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="3000"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+
+            <property name="validationQuery" value="SELECT 'x'"/>
+            <property name="testWhileIdle" value="true"/>
+            <property name="testOnBorrow" value="false"/>
+            <property name="testOnReturn" value="false"/>
+
+            <property name="poolPreparedStatements" value="true"/>
+            <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+
+            <!-- 配置监控统计拦截的filters -->
+            <property name="filters" value="stat"/>
+            <property name="proxyFilters">
+                <list>
+                    <bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4j2Filter">
+                        <!-- 所有连接相关的日志 -->
+                        <property name="connectionLogEnabled" value="false"/>
+                        <!-- 所有Statement相关的日志 -->
+                        <property name="statementLogEnabled" value="false"/>
+                        <!-- 是否显示结果集 -->
+                        <property name="resultSetLogEnabled" value="true"/>
+                        <!-- 是否显示SQL语句 -->
+                        <property name="statementExecutableSqlLogEnable" value="true"/>
+                    </bean>
+                </list>
+            </property>
+    </bean>
+
+    <!-- sqlSessionFactory配置-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="springDataSourceDemo" />
+<!--        <property name="typeAliasesPackage"-->
+<!--                  value="-->
+<!--                  com.animals.animalsdemo.dbdo,-->
+<!--                  com.animals.animalsdemo.domain.response,-->
+<!--                  com.animals.animalsdemo.domain.request,-->
+<!--                  com.animals.animalsdemo.domain.query-->
+<!--            "-->
+<!--        />-->
+        <!-- 文件映射器，指定类文件 -->
+<!--        <property name="configLocation" value="classpath:mybatis"/>-->
+        <!-- 自动扫描mapping.xml文件 -->
+        <property name="mapperLocations">
+            <array>
+                <value>classpath*:mybatis/*.xml</value>
+            </array>
+        </property>
+
+<!--        <property name="plugins">-->
+<!--            <array>-->
+<!--                <bean class="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor"/>-->
+<!--            </array>-->
+<!--        </property>-->
+    </bean>
+
+    <bean id="sqlSession" class= "org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory" index="0"/>
+    </bean>
+
+    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+    <bean id="animalMapperScannerConfigurer"
+          class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+          p:basePackage="com.animals.animalsdemo.mapper"
+          p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
+    <bean id="animalTransactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          p:dataSource-ref="springDataSourceDemo"/>
+    <bean id="animalTransactionTemplate"
+          class="org.springframework.transaction.support.TransactionTemplate"
+          p:transactionManager-ref="animalTransactionManager"/>
+</beans>

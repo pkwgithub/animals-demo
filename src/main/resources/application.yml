@@ -1,0 +1,19 @@
+server:
+  port: 8085
+  servlet:
+    context-path: /animals/merchants
+logging:
+  config: classpath:animals-log4j.xml
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 3000
+    jedis:
+      pool:
+        min-idle: 5
+        max-idle: 10
+        max-active: -1
+

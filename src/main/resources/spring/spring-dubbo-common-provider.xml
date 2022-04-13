@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       		           http://www.springframework.org/schema/beans/spring-beans.xsd
+       		           http://code.alibabatech.com/schema/dubbo
+       		           http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-autowire="byName">
+
+    <bean id="userService" class="com.animals.animalsdemo.allService.outService.user.impl.UserServiceImpl"/>
+
+    <dubbo:service id="userServiceProvider"
+                   interface="com.animals.animalsdemo.allService.outService.user.UserService"
+                   ref="userService"
+                   version="1.0.0.pkw"
+                   group="animal"
+                   timeout="3000"/>
+
+    <bean id="baseService" class="com.animals.animalsdemo.allService.outService.base.impl.BaseServiceImpl"/>
+
+    <dubbo:service id="baseServiceProvider"
+                   interface="com.animals.animalsdemo.allService.outService.base.BaseService"
+                   ref="baseService"
+                   version="1.0.0.pkw"
+                   group="animal"
+                   timeout="3000"/>
+
+</beans>

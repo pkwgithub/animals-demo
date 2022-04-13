@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.animals.animalsdemo.mapper.BaseTypeDictDOMapper">
+  <resultMap id="BaseResultMap" type="com.animals.animalsdemo.dbdo.BaseTypeDictDO">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="code_type_name" jdbcType="VARCHAR" property="codeTypeName" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+
+  <sql id="selectColumn">
+    id,type,code,name,sort,code_type_name,create_by,create_date,update_by,update_date,version
+  </sql>
+
+  <insert id="insert" parameterType="com.animals.animalsdemo.dbdo.BaseTypeDictDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into base_type_dict (type, code, name,
+    sort, code_type_name, create_by,
+    create_date, update_by, update_date,
+    version)
+    values (#{type,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+    #{sort,jdbcType=INTEGER}, #{codeTypeName,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR},
+    #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP},
+    #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.animals.animalsdemo.dbdo.BaseTypeDictDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into base_type_dict
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        type,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="codeTypeName != null">
+        code_type_name,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="codeTypeName != null">
+        #{codeTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="listByCondition" resultMap="BaseResultMap">
+    select <include refid="selectColumn"/> from base_type_dict
+   where 1=1
+    <if test="type != null">
+      and type = #{type}
+    </if>
+    <if test="code != null">
+      and code = #{code}
+    </if>
+    <if test="name != null">
+      and name = #{name}
+    </if>
+    <if test="sort != null">
+      and sort = #{sort}
+    </if>
+    <if test="codeTypeName != null">
+      and code_type_name = #{codeTypeName}
+    </if>
+    <if test="createBy != null">
+      and create_by = #{createBy}
+    </if>
+    <if test="createDate != null">
+      and create_date = #{createDate}
+    </if>
+    <if test="updateBy != null">
+      and update_by = #{updateBy}
+    </if>
+    <if test="updateDate != null">
+      and update_date = #{updateDate}
+    </if>
+    <if test="version != null">
+      and version = #{version}
+    </if>
+  </select>
+</mapper>

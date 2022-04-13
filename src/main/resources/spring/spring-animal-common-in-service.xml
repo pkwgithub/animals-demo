@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       		           http://www.springframework.org/schema/beans/spring-beans.xsd
+                       http://mybatis.org/schema/mybatis-spring
+                       http://mybatis.org/schema/mybatis-spring.xsd" default-autowire="byName">
+
+
+
+    <bean id="userInService" class="com.animals.animalsdemo.allService.inService.user.impl.UserInServiceImpl"/>
+
+    <bean id="baseInService" class="com.animals.animalsdemo.allService.inService.base.impl.BaseInServiceImpl"/>
+
+
+
+
+
+</beans>
