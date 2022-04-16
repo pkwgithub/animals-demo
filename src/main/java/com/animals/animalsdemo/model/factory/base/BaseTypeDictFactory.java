@@ -33,6 +33,9 @@ public class BaseTypeDictFactory {
     public static BaseTypeDictDO petsTypeReqDTOToDo(PetsTypeDictReqDTO petsTypeDictReqDTO){
         Date date = new Date();
         BaseTypeDictDO baseTypeDictDO = new BaseTypeDictDO();
+        if(petsTypeDictReqDTO != null){
+            baseTypeDictDO.setId(petsTypeDictReqDTO.getId());
+        }
         baseTypeDictDO.setType(petsTypeDictReqDTO.getType());
         baseTypeDictDO.setCode(petsTypeDictReqDTO.getCode());
         baseTypeDictDO.setName(petsTypeDictReqDTO.getName());
@@ -42,7 +45,7 @@ public class BaseTypeDictFactory {
         baseTypeDictDO.setCreateDate(date);
         baseTypeDictDO.setUpdateBy(petsTypeDictReqDTO.getUpdateBy());
         baseTypeDictDO.setUpdateDate(date);
-        baseTypeDictDO.setVersion(0);
+//        baseTypeDictDO.setVersion(0);
         return baseTypeDictDO;
     }
 }

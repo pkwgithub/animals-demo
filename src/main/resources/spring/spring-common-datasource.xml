@@ -7,9 +7,10 @@
 
         <bean id="springDataSourceDemo" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/animal?useSSL=false&amp;userUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/animals?useSSL=false&amp;userUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
+<!--        <property name="password" value="pankewei"/>-->
 
         <!-- 配置初始化大小、最小、最大 -->
         <property name="initialSize" value="10"/>

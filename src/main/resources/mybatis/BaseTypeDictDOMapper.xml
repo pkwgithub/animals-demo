@@ -19,6 +19,12 @@
     id,type,code,name,sort,code_type_name,create_by,create_date,update_by,update_date,version
   </sql>
 
+  <select id="getById" resultMap="BaseResultMap">
+    select
+    <include refid="selectColumn"/>
+    from base_type_dict where id = #{id}
+  </select>
+
   <insert id="insert" parameterType="com.animals.animalsdemo.dbdo.BaseTypeDictDO">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
@@ -133,8 +139,27 @@
     <if test="updateDate != null">
       and update_date = #{updateDate}
     </if>
-    <if test="version != null">
-      and version = #{version}
-    </if>
   </select>
+
+  <delete id="deleteById" parameterType="com.animals.animalsdemo.dbdo.BaseTypeDictDO">
+    delete from base_type_dict where id = #{id}
+  </delete>
+
+  <update id="saveById" parameterType="com.animals.animalsdemo.dbdo.BaseTypeDictDO">
+    update base_type_dict
+    <set>
+      version = version +1,create_by = #{createBy},create_date = #{createDate},update_by = #{updateBy},update_date = #{updateDate}
+      <if test="code != null">
+        ,code = #{code}
+      </if>
+      <if test="name != null">
+        ,name = #{name}
+      </if>
+      <if test="sort != null">
+        ,sort = #{sort}
+      </if>
+
+    </set>
+    where id = #{id} and version = #{version}
+  </update>
 </mapper>

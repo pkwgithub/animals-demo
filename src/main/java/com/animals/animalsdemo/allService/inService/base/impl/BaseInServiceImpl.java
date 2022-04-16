@@ -6,8 +6,10 @@ import com.animals.animalsdemo.dbdo.BaseTypeDictDO;
 import com.animals.animalsdemo.domain.query.base.BaseTypeDictQuery;
 import com.animals.animalsdemo.domain.request.base.PetsTypeDictReqDTO;
 import com.animals.animalsdemo.domain.response.base.BaseTypeDictRespDTO;
+import com.animals.animalsdemo.exception.BusinessException;
 import com.animals.animalsdemo.mapper.BaseTypeDictDOMapper;
 import com.animals.animalsdemo.model.base.BaseTypeDictModel;
+import com.animals.animalsdemo.model.base.BaseTypeDictQueryModel;
 import com.animals.animalsdemo.model.factory.base.BaseTypeDictFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.TransactionStatus;
@@ -56,4 +58,39 @@ public class BaseInServiceImpl implements BaseInService {
             }
         });
     }
+
+    /**
+     * 根据id删除基础字典表
+     */
+    @Override
+    public void deleteBaseTypeDictById(Integer id) {
+        if(id == null){
+            throw new BusinessException("id不能为空！");
+        }
+        int deleteById = baseTypeDictDOMapper.deleteById(id);
+        if(deleteById !=1){
+            throw new BusinessException("删除失败！");
+        }
+    }
+
+    @Override
+    public void saveBaseTypeDictById(PetsTypeDictReqDTO petsTypeDictReqDTO) {
+        if(petsTypeDictReqDTO.getId() == null){
+            throw new BusinessException("id不能为空！");
+        }
+        BaseTypeDictQueryModel queryModel = new BaseTypeDictQueryModel();
+        queryModel.setId(petsTypeDictReqDTO.getId());
+        BaseTypeDictDO baseTypeDictDO = baseTypeDictDOMapper.getById(queryModel);
+        if(baseTypeDictDO == null){
+            throw new BusinessException("没有该数据！");
+        }
+
+        BaseTypeDictDO typeReqDTOToDo = BaseTypeDictFactory.petsTypeReqDTOToDo(petsTypeDictReqDTO);
+        typeReqDTOToDo.setVersion(baseTypeDictDO.getVersion());
+        int byId = baseTypeDictDOMapper.saveById(typeReqDTOToDo);
+        if(byId !=1){
+            throw new BusinessException("保存失败！");
+        }
+    }
+
 }

@@ -9,6 +9,12 @@ import java.util.List;
  * @author pankewei
  */
 public interface BaseTypeDictDOMapper {
+
+    /**
+     * 根据id查询数据
+     */
+    BaseTypeDictDO getById(BaseTypeDictQueryModel baseTypeDictQueryModel);
+
     /**
      * 插入基础字典
      * @param baseTypeDictDO
@@ -29,4 +35,13 @@ public interface BaseTypeDictDOMapper {
      * @return
      */
     List<BaseTypeDictDO> listByCondition(BaseTypeDictQueryModel baseTypeDictQueryModel);
+
+    /**
+     * 根据id查询
+     * @param id
+     * @return
+     */
+    int deleteById(Integer  id);
+
+    int saveById(BaseTypeDictDO baseTypeDictDO);
 }

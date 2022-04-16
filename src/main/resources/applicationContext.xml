@@ -12,7 +12,6 @@
     <import resource="spring/spring-common-datasource.xml"/>
     <import resource="spring/spring-animal-common-in-service.xml"/>
     <import resource="spring/spring-animal-common-out-service.xml"/>
-    <import resource="spring/spring-dubbo-common-provider.xml"/>
     <import resource="spring/spring-dubbo-common-config.xml"/>
 <!--    <import resource="spring/spring-redis.xml"/>-->
 

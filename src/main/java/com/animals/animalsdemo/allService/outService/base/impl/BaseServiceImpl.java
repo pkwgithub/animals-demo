@@ -38,4 +38,33 @@ public class BaseServiceImpl implements BaseService {
         rs.setStatus(true);
         return rs;
     }
+
+    @Override
+    public Response<Void> deletePetsBaseTypeDict(PetsTypeDictReqDTO petsTypeDictReqDTO) {
+        Response<Void> rs = new Response<>();
+        rs.setMsg("成功");
+        rs.setCode(200);
+        baseInService.deleteBaseTypeDictById(petsTypeDictReqDTO.getId());
+        rs.setStatus(true);
+        return rs;
+    }
+
+    @Override
+    public Response<Void> savePetsBaseTypeDict(PetsTypeDictReqDTO petsTypeDictReqDTO) {
+        Response<Void> rs = new Response<>();
+
+        try {
+            baseInService.saveBaseTypeDictById(petsTypeDictReqDTO);
+            rs.setMsg("成功");
+            rs.setCode(200);
+            rs.setStatus(true);
+
+        }catch (Exception e){
+            rs.setMsg("失败");
+            rs.setCode(-1);
+            rs.setStatus(false);
+
+        }
+        return rs;
+    }
 }

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.animals</groupId>
 	<artifactId>animalsDemo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>animalsDemo</name>
 	<description>animalsDemo</description>
 	<properties>
@@ -233,8 +233,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

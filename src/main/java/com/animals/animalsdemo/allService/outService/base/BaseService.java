@@ -27,4 +27,19 @@ public interface BaseService {
      */
     Response<Void> addPetsBaseTypeDict(List<PetsTypeDictReqDTO> petsTypeDictList);
 
+
+    /**
+     * 根据Id删除宠物字典
+     * @param petsTypeDictReqDTO
+     * @return
+     */
+    Response<Void> deletePetsBaseTypeDict(PetsTypeDictReqDTO petsTypeDictReqDTO);
+
+    /**
+     * 根据Id保存宠物字典
+     * @param petsTypeDictReqDTO
+     * @return
+     */
+    Response<Void> savePetsBaseTypeDict(PetsTypeDictReqDTO petsTypeDictReqDTO);
+
 }

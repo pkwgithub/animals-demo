@@ -24,4 +24,9 @@ public interface BaseInService {
      * @param petsTypeDictList
      */
     void addBaseTypeDict(List<PetsTypeDictReqDTO> petsTypeDictList);
+
+
+    void deleteBaseTypeDictById(Integer id);
+
+    void saveBaseTypeDictById(PetsTypeDictReqDTO petsTypeDictReqDTO);
 }
