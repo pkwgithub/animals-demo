@@ -21,50 +21,58 @@ public class BaseServiceImpl implements BaseService {
 
     @Override
     public Response<List<BaseTypeDictRespDTO>> listByCondition(BaseTypeDictQuery baseTypeDictQuery) {
-        Response<List<BaseTypeDictRespDTO>> rs = new Response<>();
-        rs.setMsg("成功");
-        rs.setCode(200);
-        rs.setResult(baseInService.listByCondition(baseTypeDictQuery));
-        rs.setStatus(true);
-        return rs;
+        try{
+            return setSuccess(baseInService.listByCondition(baseTypeDictQuery));
+        }catch (Exception e){
+            return setFail(e);
+        }
+
     }
 
     @Override
     public Response<Void> addPetsBaseTypeDict(List<PetsTypeDictReqDTO> petsTypeDictList) {
-        Response<Void> rs = new Response<>();
-        rs.setMsg("成功");
-        rs.setCode(200);
-        baseInService.addBaseTypeDict(petsTypeDictList);
-        rs.setStatus(true);
-        return rs;
+        try {
+            baseInService.addBaseTypeDict(petsTypeDictList);
+            return setSuccess(null);
+        }catch (Exception e){
+            return setFail(e);
+        }
     }
 
     @Override
     public Response<Void> deletePetsBaseTypeDict(PetsTypeDictReqDTO petsTypeDictReqDTO) {
-        Response<Void> rs = new Response<>();
-        rs.setMsg("成功");
-        rs.setCode(200);
-        baseInService.deleteBaseTypeDictById(petsTypeDictReqDTO.getId());
-        rs.setStatus(true);
-        return rs;
+        try {
+            baseInService.deleteBaseTypeDictById(petsTypeDictReqDTO.getId());
+            return setSuccess(null);
+        }catch (Exception e){
+            return setFail(e);
+        }
     }
 
     @Override
     public Response<Void> savePetsBaseTypeDict(PetsTypeDictReqDTO petsTypeDictReqDTO) {
-        Response<Void> rs = new Response<>();
-
         try {
             baseInService.saveBaseTypeDictById(petsTypeDictReqDTO);
-            rs.setMsg("成功");
-            rs.setCode(200);
-            rs.setStatus(true);
-
+            return setSuccess(null);
         }catch (Exception e){
-            rs.setMsg("失败");
-            rs.setCode(-1);
-            rs.setStatus(false);
-
+            return setFail(e);
         }
+    }
+
+    private Response setSuccess(Object o){
+        Response rs = new Response();
+        rs.setMsg("成功");
+        rs.setCode(200);
+        rs.setResult(o);
+        rs.setStatus(true);
+        return rs;
+    }
+
+    private Response setFail(Exception e){
+        Response rs = new Response();
+        rs.setMsg("失败:"+e);
+        rs.setCode(-1);
+        rs.setStatus(false);
         return rs;
     }
 }
