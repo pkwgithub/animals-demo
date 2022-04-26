@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.animals.animalsdemo.mapper.PetsDetailDOMapper">
+  <resultMap id="BaseResultMap" type="com.animals.animalsdemo.dbdo.PetsDetailDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="animal_name" jdbcType="VARCHAR" property="animalName" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="age" jdbcType="DOUBLE" property="age" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="image_url_id" jdbcType="VARCHAR" property="imageUrlId" />
+    <result column="video_url_id" jdbcType="VARCHAR" property="videoUrlId" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_name" jdbcType="VARCHAR" property="updateName" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, code, name, animal_name, detail, price, age, sex, image_url_id, video_url_id,
+    create_by, create_name, create_date, update_by, update_name, update_date, version, 
+    is_del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pets_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pets_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.animals.animalsdemo.dbdo.PetsDetailDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into pets_detail (code, name, animal_name, 
+      detail, price, age, 
+      sex, image_url_id, video_url_id,
+      create_by, create_name, create_date, 
+      update_by, update_name, update_date, 
+      version, is_del)
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{animalName,jdbcType=VARCHAR}, 
+      #{detail,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{age,jdbcType=DOUBLE}, 
+      #{sex,jdbcType=INTEGER}, #{imageUrlId,jdbcType=VARCHAR}, #{videoUrlId,jdbcType=VARCHAR},
+      #{createBy,jdbcType=VARCHAR}, #{createName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateName,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.animals.animalsdemo.dbdo.PetsDetailDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into pets_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="animalName != null">
+        animal_name,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="imageUrlId != null">
+        image_url_id,
+      </if>
+      <if test="videoUrlId != null">
+        video_url_id,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateName != null">
+        update_name,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="animalName != null">
+        #{animalName,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=DOUBLE},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="imageUrlId != null">
+        #{imageUrlId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrlId != null">
+        #{videoUrlId,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null">
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.animals.animalsdemo.dbdo.PetsDetailDO">
+    update pets_detail
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="animalName != null">
+        animal_name = #{animalName,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=DOUBLE},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="imageUrlId != null">
+        image_url_id = #{imageUrlId,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrlId != null">
+        video_url_id = #{videoUrlId,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateName != null">
+        update_name = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.animals.animalsdemo.dbdo.PetsDetailDO">
+    update pets_detail
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      animal_name = #{animalName,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      age = #{age,jdbcType=DOUBLE},
+      sex = #{sex,jdbcType=INTEGER},
+      image_url_id = #{imageUrlId,jdbcType=VARCHAR},
+      video_url_id = #{videoUrlId,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_name = #{updateName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getPageCount" resultType="integer" parameterType="com.animals.animalsdemo.dbdo.PetsDetailDO">
+        select count(1) from  pets_detail pd
+    left join url_details image on image.id = pd.image_url_id
+    left join url_details v on v.id = pd.video_url_id
+    <where>
+    1=1
+      <if test="code != null and  code != ''">
+        and code = #{code}
+      </if>
+      <if test="sex != null">
+        and sex = #{sex}
+      </if>
+      <if test="sex != null">
+        and sex = #{sex}
+      </if>
+      <if test="createName != null and createName != ''">
+        and create_name like concat('%', #{createName}, '%')
+      </if>
+      <if test="createDateStart != null">
+        and create_date >= #{createDateStart}
+      </if>
+      <if test="createDateEnd != null">
+        and create_date &lt;=  #{createDateEnd}
+      </if>
+      <if test="updateName != null and updateName != ''">
+        and update_name like concat('%', #{updateName}, '%')
+      </if>
+      <if test="updateDateStart != null">
+        and update_date >= #{updateDateStart}
+      </if>
+      <if test="updateDateEnd != null">
+        and update_date &lt;=  #{updateDateEnd}
+      </if>
+    </where>
+  </select>
+
+  <select id="getPageInfo" resultMap="BaseResultMap" parameterType="com.animals.animalsdemo.dbdo.PetsDetailDO">
+    select <include refid="Base_Column_List"/>,image.url as image_url,v.url as video_url from  pets_detail pd
+    left join url_details image on image.id = pd.image_url_id
+    left join url_details v on v.id = pd.video_url_id
+    <where>
+      1=1
+      <if test="code != null and  code != ''">
+        and code = #{code}
+      </if>
+      <if test="sex != null">
+        and sex = #{sex}
+      </if>
+      <if test="sex != null">
+        and sex = #{sex}
+      </if>
+      <if test="createName != null and createName != ''">
+        and create_name like concat('%', #{createName}, '%')
+      </if>
+      <if test="createDateStart != null">
+        and create_date >= #{createDateStart}
+      </if>
+      <if test="createDateEnd != null">
+        and create_date &lt;=  #{createDateEnd}
+      </if>
+      <if test="updateName != null and updateName != ''">
+        and update_name like concat('%', #{updateName}, '%')
+      </if>
+      <if test="updateDateStart != null">
+        and update_date >= #{updateDateStart}
+      </if>
+      <if test="updateDateEnd != null">
+        and update_date &lt;=  #{updateDateEnd}
+      </if>
+    </where>
+  </select>
+</mapper>

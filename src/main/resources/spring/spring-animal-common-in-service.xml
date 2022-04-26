@@ -12,9 +12,5 @@
     <bean id="userInService" class="com.animals.animalsdemo.allService.inService.user.impl.UserInServiceImpl"/>
 
     <bean id="baseInService" class="com.animals.animalsdemo.allService.inService.base.impl.BaseInServiceImpl"/>
-
-
-
-
-
+    <bean id="petsDetailInServiceImpl" class="com.animals.animalsdemo.allService.inService.merchants.impl.PetsDetailInServiceImpl"/>
 </beans>

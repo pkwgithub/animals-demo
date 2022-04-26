@@ -13,4 +13,5 @@
     <bean id="baseService" class="com.animals.animalsdemo.allService.outService.base.impl.BaseServiceImpl"/>
 
     <bean id="getRocketMsgService" class="com.animals.animalsdemo.loginService.GetRocketMsgServiceImpl"/>
+    <bean id="petsDetailService" class="com.animals.animalsdemo.allService.outService.merchants.impl.PetsDetailServiceImpl"/>
 </beans>
