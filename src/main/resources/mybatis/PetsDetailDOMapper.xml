@@ -20,10 +20,12 @@
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
     <result column="version" jdbcType="INTEGER" property="version" />
     <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="image_main_url_id" jdbcType="VARCHAR" property="imageMainUrlId" />
+    <result column="image_main_url" jdbcType="VARCHAR" property="imageMainUrl" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, code, name, animal_name, detail, price, age, sex, image_url_id, video_url_id,
-    create_by, create_name, create_date, update_by, update_name, update_date, version, 
+    id, code, name, image_main_url_id,animal_name, detail, price, age, sex, image_url_id, video_url_id,
+    create_by, create_date, update_by, update_date, version,
     is_del
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -40,13 +42,13 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into pets_detail (code, name, animal_name, 
+    insert into pets_detail (code, image_main_url_id,name, animal_name,
       detail, price, age, 
       sex, image_url_id, video_url_id,
       create_by, create_name, create_date, 
       update_by, update_name, update_date, 
       version, is_del)
-    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{animalName,jdbcType=VARCHAR}, 
+    values (#{code,jdbcType=VARCHAR},#{imageMainUrlId}, #{name,jdbcType=VARCHAR}, #{animalName,jdbcType=VARCHAR},
       #{detail,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{age,jdbcType=DOUBLE}, 
       #{sex,jdbcType=INTEGER}, #{imageUrlId,jdbcType=VARCHAR}, #{videoUrlId,jdbcType=VARCHAR},
       #{createBy,jdbcType=VARCHAR}, #{createName,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
@@ -61,6 +63,10 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="code != null">
         code,
+      </if>
+
+      <if test="imageMainUrlId != null and imageMainUrlId != ''">
+        image_main_url_id,
       </if>
       <if test="name != null">
         name,
@@ -115,6 +121,9 @@
       <if test="code != null">
         #{code,jdbcType=VARCHAR},
       </if>
+      <if test="imageMainUrlId != null and imageMainUrlId != ''">
+        #{imageMainUrlId},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -168,6 +177,7 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.animals.animalsdemo.dbdo.PetsDetailDO">
     update pets_detail
     <set>
+        version = version +1,
       <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
       </if>
@@ -213,14 +223,14 @@
       <if test="updateDate != null">
         update_date = #{updateDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="version != null">
-        version = #{version,jdbcType=INTEGER},
+      <if test="imageMainUrlId != null and imageMainUrlId != ''">
+        image_main_url_id = #{imageMainUrlId},
       </if>
       <if test="isDel != null">
         is_del = #{isDel,jdbcType=INTEGER},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER} and version = #{version}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.animals.animalsdemo.dbdo.PetsDetailDO">
     update pets_detail
@@ -245,9 +255,10 @@
   </update>
 
   <select id="getPageCount" resultType="integer" parameterType="com.animals.animalsdemo.dbdo.PetsDetailDO">
-        select count(1) from  pets_detail pd
-    left join url_details image on image.id = pd.image_url_id
-    left join url_details v on v.id = pd.video_url_id
+    select count(1) from  pets_detail pd
+    left join url_details image on image.id = pd.image_main_url_id
+    left join user u1 on pd.create_by = u1.account
+    left join user u2 on pd.update_by = u2.account
     <where>
     1=1
       <if test="code != null and  code != ''">
@@ -281,9 +292,11 @@
   </select>
 
   <select id="getPageInfo" resultMap="BaseResultMap" parameterType="com.animals.animalsdemo.dbdo.PetsDetailDO">
-    select <include refid="Base_Column_List"/>,image.url as image_url,v.url as video_url from  pets_detail pd
-    left join url_details image on image.id = pd.image_url_id
-    left join url_details v on v.id = pd.video_url_id
+    select pd.*
+           ,image.url as image_main_url,u1.user_name as create_name,u2.user_name as update_name from  pets_detail pd
+    left join url_details image on image.uid = pd.image_main_url_id
+        left join user u1 on pd.create_by = u1.account
+        left join user u2 on pd.update_by = u2.account
     <where>
       1=1
       <if test="code != null and  code != ''">

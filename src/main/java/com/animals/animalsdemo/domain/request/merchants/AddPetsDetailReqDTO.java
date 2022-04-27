@@ -1,4 +1,4 @@
-package com.animals.animalsdemo.domain.response.merchants;
+package com.animals.animalsdemo.domain.request.merchants;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class PagePetsDetailRespDTO {
+public class AddPetsDetailReqDTO {
     private Integer id;
 
     private String code;
@@ -23,26 +23,25 @@ public class PagePetsDetailRespDTO {
 
     private Integer sex;
 
+
     private String imageUrlId;
-    private String imageUrl;
+    private String imageUrls;
+
+    /**
+     * 主图
+     */
+    private String imageMainUrl;
+    private String imageMainUrlId;
 
     private String videoUrlId;
-    private String videoUrl;
+    private String videoUrls;
 
     private String createBy;
 
-    private String createName;
-
     private Date createDate;
-    private String createDateStr;
 
     private String updateBy;
 
-    private String updateName;
-
     private Date updateDate;
-    private String updateDateStr;
-    private String imageMainUrl;
 
-    private String imageMainUrlId;
 }

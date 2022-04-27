@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.animals.animalsdemo.mapper.UrlDetailsDOMapper">
+  <resultMap id="BaseResultMap" type="com.animals.animalsdemo.dbdo.UrlDetailsDO">
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+  </resultMap>
+  <sql id="BaseResultMap">
+        id,uid,url
+  </sql>
+  <insert id="insert" parameterType="com.animals.animalsdemo.dbdo.UrlDetailsDO">
+    insert into url_details (uid, url)
+    values (#{uid,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.animals.animalsdemo.dbdo.UrlDetailsDO">
+    insert into url_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insertBatch">
+    insert  into url_details(uid,url) values
+    <foreach collection="list" item="item"  separator=",">
+        (#{item.uid},#{item.url})
+    </foreach>
+  </insert>
+
+  <select id="getByUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select <include refid="BaseResultMap"/> from url_details where uid = #{uid}
+  </select>
+
+  <delete id="deleteByUid" parameterType="java.lang.String">
+        delete from url_details where uid = #{uid};
+  </delete>
+</mapper>

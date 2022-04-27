@@ -48,4 +48,12 @@ public class Page<T> implements Serializable {
         return startIndex;
     }
 
+    public Page(Integer totalCount, List<T> pageList) {
+        this.totalCount = totalCount;
+        this.pageList = pageList;
+    }
+
+    public Page() {
+
+    }
 }
