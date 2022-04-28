@@ -28,4 +28,11 @@ public interface PetsDetailService {
      * @return
      */
     Response editPetsInfo(EditPetsDetailReqDTO editPetsDetailReqDTO);
+
+    /**
+     * 删除宠物信息
+     * @param editPetsDetailReqDTO
+     * @return
+     */
+    Response deletePetsInfo(EditPetsDetailReqDTO editPetsDetailReqDTO);
 }

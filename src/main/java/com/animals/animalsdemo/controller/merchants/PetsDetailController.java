@@ -54,4 +54,16 @@ public class PetsDetailController {
     }
 
 
+    /**
+     * 删除宠物信息
+     * @param editPetsDetailReqDTO
+     * @return
+     */
+    @PostMapping(value = "/deletePetsInfo")
+    @ResponseBody
+    public Response deletePetsInfo(@RequestBody(required = false) EditPetsDetailReqDTO editPetsDetailReqDTO){
+        return petsDetailService.deletePetsInfo(editPetsDetailReqDTO);
+    }
+
+
 }

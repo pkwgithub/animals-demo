@@ -260,7 +260,7 @@
     left join user u1 on pd.create_by = u1.account
     left join user u2 on pd.update_by = u2.account
     <where>
-    1=1
+     is_del = 0
       <if test="code != null and  code != ''">
         and code = #{code}
       </if>
@@ -298,7 +298,7 @@
         left join user u1 on pd.create_by = u1.account
         left join user u2 on pd.update_by = u2.account
     <where>
-      1=1
+      is_del = 0
       <if test="code != null and  code != ''">
         and code = #{code}
       </if>

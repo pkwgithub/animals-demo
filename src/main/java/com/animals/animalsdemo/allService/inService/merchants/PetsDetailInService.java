@@ -18,4 +18,6 @@ public interface PetsDetailInService {
     PetsDetailRespDTO findById(Integer id);
 
     void editPetsInfo(EditPetsDetailReqDTO editPetsDetailReqDTO);
+
+    void deletePetsInfo(EditPetsDetailReqDTO editPetsDetailReqDTO);
 }

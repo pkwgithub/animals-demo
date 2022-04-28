@@ -68,4 +68,20 @@ public class PetsDetailInServiceImpl implements PetsDetailInService {
         }
 
     }
+
+    @Override
+    public void deletePetsInfo(EditPetsDetailReqDTO editPetsDetailReqDTO) {
+        PetsDetailDO petsDetailDO = petsDetailDOMapper.selectByPrimaryKey(editPetsDetailReqDTO.getId());
+        PetsDetailRespDTO petsDetailRespDTO = new PetsDetailModel(petsDetailDO).doToResp();
+        if(petsDetailRespDTO == null){
+            throw new BusinessException("没有该宠物数据");
+        }
+        editPetsDetailReqDTO.setVersion(petsDetailRespDTO.getVersion());
+        editPetsDetailReqDTO.setIsDel(1);
+        PetsDetailDO editPetsDetailReqToDo = new PetsDetailModel(editPetsDetailReqDTO).editPetsDetailReqToDo();
+        int i = petsDetailDOMapper.updateByPrimaryKeySelective(editPetsDetailReqToDo);
+        if(i <1){
+            throw new BusinessException("保存失败！");
+        }
+    }
 }

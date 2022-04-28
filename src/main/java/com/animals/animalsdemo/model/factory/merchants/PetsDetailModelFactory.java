@@ -50,11 +50,11 @@ public class PetsDetailModelFactory {
         pagePetsDetailRespDTO.setCreateBy(petsDetailDO.getCreateBy());
         pagePetsDetailRespDTO.setCreateName(petsDetailDO.getCreateName());
         pagePetsDetailRespDTO.setCreateDate(petsDetailDO.getCreateDate());
-        pagePetsDetailRespDTO.setCreateDateStr(DateFormatUtils.format(petsDetailDO.getCreateDate(),"yyyy-MM-dd"));
+        pagePetsDetailRespDTO.setCreateDateStr(DateFormatUtils.format(petsDetailDO.getCreateDate(),"yyyy-MM-dd hh:mm:ss"));
         pagePetsDetailRespDTO.setUpdateBy(petsDetailDO.getUpdateBy());
         pagePetsDetailRespDTO.setUpdateName(petsDetailDO.getUpdateName());
         pagePetsDetailRespDTO.setUpdateDate(petsDetailDO.getUpdateDate());
-        pagePetsDetailRespDTO.setUpdateDateStr(DateFormatUtils.format(petsDetailDO.getUpdateDate(),"yyyy-MM-dd"));
+        pagePetsDetailRespDTO.setUpdateDateStr(DateFormatUtils.format(petsDetailDO.getUpdateDate(),"yyyy-MM-dd hh:mm:ss"));
         pagePetsDetailRespDTO.setImageMainUrl(petsDetailDO.getImageMainUrl());
         pagePetsDetailRespDTO.setImageMainUrlId(petsDetailDO.getImageMainUrlId());
         return pagePetsDetailRespDTO;

@@ -9,7 +9,6 @@ import com.animals.animalsdemo.domain.request.merchants.AddUrlDetailsReqDTO;
 import com.animals.animalsdemo.domain.request.merchants.EditPetsDetailReqDTO;
 import com.animals.animalsdemo.domain.response.merchants.PagePetsDetailRespDTO;
 import com.animals.animalsdemo.domain.response.merchants.PetsDetailRespDTO;
-import com.animals.animalsdemo.domain.response.merchants.UrlDetailsResqDTO;
 import com.animals.animalsdemo.exception.BusinessException;
 import com.animals.animalsdemo.exception.Response;
 import com.animals.animalsdemo.unit.Page;
@@ -95,6 +94,16 @@ public class PetsDetailServiceImpl implements PetsDetailService {
                     petsDetailInService.editPetsInfo(editPetsDetailReqDTO);
                 }
             });
+            return setSuccess(null);
+        }catch (Exception e){
+            return setFail(e);
+        }
+    }
+
+    @Override
+    public Response deletePetsInfo(EditPetsDetailReqDTO editPetsDetailReqDTO) {
+        try {
+            petsDetailInService.deletePetsInfo(editPetsDetailReqDTO);
             return setSuccess(null);
         }catch (Exception e){
             return setFail(e);
