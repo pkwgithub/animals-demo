@@ -1,6 +1,6 @@
 package com.animals.animalsdemo.dbdo;
 
-public class UrlDetailsDO {
+public class UrlsDetailDO {
     private String uid;
 
     private String url;

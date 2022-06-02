@@ -25,6 +25,7 @@ public class EditPetsDetailReqDTO {
 
 
     private String imageUrlId;
+    private String imageUrls;
     /**
      * 主图
      */
@@ -32,6 +33,7 @@ public class EditPetsDetailReqDTO {
     private String imageMainUrlId;
 
     private String videoUrlId;
+    private String videoUrls;
 
     private String createBy;
 

@@ -256,7 +256,7 @@
 
   <select id="getPageCount" resultType="integer" parameterType="com.animals.animalsdemo.dbdo.PetsDetailDO">
     select count(1) from  pets_detail pd
-    left join url_details image on image.id = pd.image_main_url_id
+    left join urls_detail image on image.id = pd.image_main_url_id
     left join user u1 on pd.create_by = u1.account
     left join user u2 on pd.update_by = u2.account
     <where>
@@ -294,7 +294,7 @@
   <select id="getPageInfo" resultMap="BaseResultMap" parameterType="com.animals.animalsdemo.dbdo.PetsDetailDO">
     select pd.*
            ,image.url as image_main_url,u1.user_name as create_name,u2.user_name as update_name from  pets_detail pd
-    left join url_details image on image.uid = pd.image_main_url_id
+    left join urls_detail image on image.uid = pd.image_main_url_id
         left join user u1 on pd.create_by = u1.account
         left join user u2 on pd.update_by = u2.account
     <where>
@@ -327,5 +327,6 @@
         and update_date &lt;=  #{updateDateEnd}
       </if>
     </where>
+    limit #{currIndex} , #{pageSize}
   </select>
 </mapper>

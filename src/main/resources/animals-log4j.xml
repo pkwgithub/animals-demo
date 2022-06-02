@@ -2,8 +2,8 @@
 <configuration status="debug" monitorInterval="0">
     <Properties>
         <!--  日志路径参数，这里所有项目统一变量log.path -->
-        <Property name="LOG_HOME">/Users/pankewei/Desktop/animal/logs</Property>
-<!--        <Property name="LOG_HOME">/logs/animals/service</Property>-->
+<!--        <Property name="LOG_HOME">/Users/pankewei/Desktop/animal/logs</Property>-->
+        <Property name="LOG_HOME">/logs/animals/service</Property>
         <!-- 这两个参数根据项目改 -->
         <Property name="PROJECT_NAME">animals</Property>
         <Property name="PROJECT_NAME_CAMEL">animals</Property>

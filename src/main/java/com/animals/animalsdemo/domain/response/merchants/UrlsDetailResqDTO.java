@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class UrlDetailsResqDTO implements Serializable {
+public class UrlsDetailResqDTO implements Serializable {
 
     private String uid;
     private String url;

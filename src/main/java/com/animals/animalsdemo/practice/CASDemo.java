@@ -1,6 +1,7 @@
 package com.animals.animalsdemo.practice;
 
 import com.animals.animalsdemo.domain.query.user.InfoQuery;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -22,5 +23,13 @@ public class CASDemo {
             System.out.println("111");
         }
 
+    }
+
+    @Test
+    public void test(){
+        final int[] array = {200,10,0,1};
+        if(array.length >1){
+            array[0]  = 100;
+        }
     }
 }

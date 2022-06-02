@@ -31,7 +31,7 @@ public class PetsDetailController {
     }
 
     /**
-     * 保存宠物信息
+     * 新增宠物信息
      * @param addPetsDetailReqDTO
      * @return
      */

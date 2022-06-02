@@ -1,11 +1,11 @@
 package com.animals.animalsdemo.allService.outService.merchants.impl;
 
 import com.animals.animalsdemo.allService.inService.merchants.PetsDetailInService;
-import com.animals.animalsdemo.allService.inService.merchants.UrlDetailsInService;
+import com.animals.animalsdemo.allService.inService.merchants.UrlsDetailInService;
 import com.animals.animalsdemo.allService.outService.merchants.PetsDetailService;
 import com.animals.animalsdemo.domain.query.merchants.PagePetsQuery;
 import com.animals.animalsdemo.domain.request.merchants.AddPetsDetailReqDTO;
-import com.animals.animalsdemo.domain.request.merchants.AddUrlDetailsReqDTO;
+import com.animals.animalsdemo.domain.request.merchants.AddUrlsDetailReqDTO;
 import com.animals.animalsdemo.domain.request.merchants.EditPetsDetailReqDTO;
 import com.animals.animalsdemo.domain.response.merchants.PagePetsDetailRespDTO;
 import com.animals.animalsdemo.domain.response.merchants.PetsDetailRespDTO;
@@ -20,6 +20,7 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +30,7 @@ public class PetsDetailServiceImpl implements PetsDetailService {
     private PetsDetailInService petsDetailInService;
 
     @Autowired
-    private UrlDetailsInService urlDetailsInService;
+    private UrlsDetailInService urlsDetailInService;
 
     @Autowired
     private TransactionTemplate animalTransactionTemplate;
@@ -53,10 +54,10 @@ public class PetsDetailServiceImpl implements PetsDetailService {
                         if (StringUtils.isNotBlank(petsDetailReqDTO.getImageMainUrl())) {
                             String imagesUuid = UUID.randomUUID().toString();
                             petsDetailReqDTO.setImageMainUrlId(imagesUuid);
-                            AddUrlDetailsReqDTO addUrlDetailsReqDTO = new AddUrlDetailsReqDTO();
-                            addUrlDetailsReqDTO.setUid(imagesUuid);
-                            addUrlDetailsReqDTO.setUrl(petsDetailReqDTO.getImageMainUrl());
-                            urlDetailsInService.saveUrlDetails(addUrlDetailsReqDTO);
+                            AddUrlsDetailReqDTO addUrlsDetailReqDTO = new AddUrlsDetailReqDTO();
+                            addUrlsDetailReqDTO.setUid(imagesUuid);
+                            addUrlsDetailReqDTO.setUrl(petsDetailReqDTO.getImageMainUrl());
+                            urlsDetailInService.saveUrlsDetail(addUrlsDetailReqDTO);
                         }
                         petsDetailInService.savePetsInfo(petsDetailReqDTO);
                         return true;
@@ -81,15 +82,54 @@ public class PetsDetailServiceImpl implements PetsDetailService {
 
                     //删除添加
                     if(StringUtils.isNotBlank(petsDetailRespDTO.getImageMainUrlId())){
-                        urlDetailsInService.deleteByUid(petsDetailRespDTO.getImageMainUrlId());
+                        urlsDetailInService.deleteByUid(petsDetailRespDTO.getImageMainUrlId());
                     }
+
+                    if(StringUtils.isNotBlank(editPetsDetailReqDTO.getImageUrlId())){
+                        urlsDetailInService.deleteByUid(petsDetailRespDTO.getImageUrlId());
+                    }
+
+                    if(StringUtils.isNotBlank(editPetsDetailReqDTO.getVideoUrlId())){
+                        urlsDetailInService.deleteByUid(petsDetailRespDTO.getImageUrlId());
+                    }
+
                     if (StringUtils.isNotBlank(editPetsDetailReqDTO.getImageMainUrl())) {
                         String imagesUuid = UUID.randomUUID().toString();
                         editPetsDetailReqDTO.setImageMainUrlId(imagesUuid);
-                        AddUrlDetailsReqDTO addUrlDetailsReqDTO = new AddUrlDetailsReqDTO();
-                        addUrlDetailsReqDTO.setUid(imagesUuid);
-                        addUrlDetailsReqDTO.setUrl(editPetsDetailReqDTO.getImageMainUrl());
-                        urlDetailsInService.saveUrlDetails(addUrlDetailsReqDTO);
+                        AddUrlsDetailReqDTO addUrlsDetailReqDTO = new AddUrlsDetailReqDTO();
+                        addUrlsDetailReqDTO.setUid(imagesUuid);
+                        addUrlsDetailReqDTO.setUrl(editPetsDetailReqDTO.getImageMainUrl());
+                        urlsDetailInService.saveUrlsDetail(addUrlsDetailReqDTO);
+                    }
+
+                    if (StringUtils.isNotBlank(editPetsDetailReqDTO.getImageUrls())) {
+                        String imagesUuid = UUID.randomUUID().toString();
+                        editPetsDetailReqDTO.setImageUrlId(imagesUuid);
+
+
+                        List<String> imageList = Arrays.asList(editPetsDetailReqDTO.getImageUrls().split(","));
+                        List<AddUrlsDetailReqDTO> list = new ArrayList<>();
+                        imageList.stream().forEach(x->{
+                            AddUrlsDetailReqDTO addUrlsDetailReqDTO = new AddUrlsDetailReqDTO();
+                            addUrlsDetailReqDTO.setUid(imagesUuid);
+                            addUrlsDetailReqDTO.setUrl(x);
+                            list.add(addUrlsDetailReqDTO);
+                        });
+                        urlsDetailInService.bathSaveUrlsDetail(list);
+                    }
+
+                    if (StringUtils.isNotBlank(editPetsDetailReqDTO.getVideoUrls())) {
+                        String videoUUid = UUID.randomUUID().toString();
+                        editPetsDetailReqDTO.setVideoUrlId(videoUUid);
+                        List<String> videoList = Arrays.asList(editPetsDetailReqDTO.getVideoUrls().split(","));
+                        List<AddUrlsDetailReqDTO> list = new ArrayList<>();
+                        videoList.parallelStream().forEach(x->{
+                            AddUrlsDetailReqDTO addUrlsDetailReqDTO = new AddUrlsDetailReqDTO();
+                            addUrlsDetailReqDTO.setUid(videoUUid);
+                            addUrlsDetailReqDTO.setUrl(x);
+                            list.add(addUrlsDetailReqDTO);
+                        });
+                        urlsDetailInService.bathSaveUrlsDetail(list);
                     }
                     petsDetailInService.editPetsInfo(editPetsDetailReqDTO);
                 }

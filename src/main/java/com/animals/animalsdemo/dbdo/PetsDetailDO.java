@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class PetsDetailDO {
+public class PetsDetailDO{
     private Integer id;
 
     private String code;
@@ -49,6 +49,4 @@ public class PetsDetailDO {
 
     private String videoUrl;
     private String imageMainUrl;
-
-
 }
