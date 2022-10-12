@@ -1,6 +1,5 @@
 package com.animals.animalsdemo.practice;
 
-import com.animals.animalsdemo.domain.query.user.PageUserInfoQuery;
 import org.aspectj.weaver.ast.Var;
 
 import java.lang.reflect.Array;
