@@ -1,14 +1,16 @@
 package com.animals.animalsdemo.mapper;
 
 import com.animals.animalsdemo.dbdo.BaseTypeDictDO;
+import com.animals.animalsdemo.dbdo.BaseTypeDict;
 import com.animals.animalsdemo.model.base.BaseTypeDictQueryModel;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
 
 /**
  * @author pankewei
  */
-public interface BaseTypeDictDOMapper {
+public interface BaseTypeDictDOMapper extends BaseMapper<BaseTypeDict> {
 
     /**
      * 根据id查询数据

@@ -1,131 +1,100 @@
 package com.animals.animalsdemo.practice;
 
 
+import com.animals.animalsdemo.allService.inService.user.impl.UserInServiceImpl;
+import com.animals.animalsdemo.domain.query.user.PageUserInfoQuery;
+import org.aspectj.weaver.ast.Var;
 
-import com.animals.animalsdemo.dbdo.UserDO;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
-
+import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
-
-class HoldLockThread implements Runnable{
-
-    private String lockA;
-    private String lockB;
-
-    public HoldLockThread(String lockA, String lockB) {
-        this.lockA = lockA;
-        this.lockB = lockB;
-    }
-
-    @Override
-    public void run() {
-        synchronized (lockA){
-            System.out.println(Thread.currentThread().getName()+"\t 自己持有A锁 尝试获得B锁");
-            try{
-                TimeUnit.SECONDS.sleep(2);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-            synchronized (lockB){
-                System.out.println(Thread.currentThread().getName()+"\t 自己持有B锁 尝试获得A锁");
-            }
-        }
-    }
-}
+import static org.mockito.internal.progress.SequenceNumber.next;
 
 public class Test {
 
-
-    public static void main(String[] args) throws InterruptedException {
-
-//    String lockA = "lockA";
-//    String lockB = "lockB";
-//            new Thread(new HoldLockThread(lockA,lockB),"ThreadAAA").start();
-//            new Thread(new HoldLockThread(lockB,lockA),"ThreadBBB ").start();
+    public static void main(String[] args) {
+//        BigDecimal yingfagognzi =  new BigDecimal("11000");
+//        BigDecimal gongjijin =  new BigDecimal("990");
+//        BigDecimal yanglaobaoxian =  new BigDecimal("660");
+//        BigDecimal yiliaobaoxian =  new BigDecimal("165");
+//        BigDecimal shiyebaoxian =  new BigDecimal("41.25");
+//        System.out.println(yingfagognzi.subtract(gongjijin).subtract(yanglaobaoxian).subtract(yiliaobaoxian).subtract(shiyebaoxian));
+//        BigDecimal all = yingfagognzi.subtract(gongjijin).subtract(yanglaobaoxian).subtract(yiliaobaoxian).subtract(shiyebaoxian).subtract(new BigDecimal("5000"));
+//        BigDecimal shengyu = all.multiply(new BigDecimal("0.1"));
+//        System.out.println(all);
 //
-//        HashMap hashMap = new HashMap();
-//
-//        Map a = new HashMap();
+//        System.out.println(gongjijin.add(yanglaobaoxian).add(yiliaobaoxian).add(shiyebaoxian));
 
-//        String s = DateFormatUtils.format(new Date(), "yyyy-MM-dd hh:mm:ss");
-//        System.out.println(s);
-//
-//        HashSet<String> hs = new HashSet<>();
-//        hs.add("hello");
-//        hs.add("world");
-//        hs.add("java");
-//        hs.add("java");
-//        hs.add("java");
-//        Iterator<String> iterator = hs.iterator();
-//        while(iterator.hasNext()){
-//            System.out.println(iterator.next());
-//        }
-//
-//        Map<UserDO,String> map = new HashMap();
-//        map.put(new UserDO("潘柯伟1","121"),"诸暨1");
-//        map.put(new UserDO("潘柯伟2","122"),"诸暨2");
-//        map.put(new UserDO("潘柯伟3","123"),"诸暨3");
-//        Set<UserDO> userDOS = map.keySet();
-//        for (UserDO userDO : userDOS) {
-//            System.out.println(userDO);
-//            System.out.println(map.get(userDO));
-//        }
-        System.out.println(130*7);
-        System.out.println(129.60+15.31+15.31+14.25+560);
-        System.out.println(129.60+15.77+15.77+14.25+560);
-
+        List  list = new ArrayList();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        list.add("5");
+        list.add(2,"潘柯伟");
+       list.forEach(x->{
+           System.out.println(x);
+               }
+       );
 
     }
 
-    /**
-     * 冒泡排序
-     */
-    private void sortDemo(){
-        int[] a = {9, 1, 3, 7, 4, 0, 4, 1, 2};
-        for (int i = 0; i < a.length - 1; i++) {
-            for (int j = 0; j < a.length - 1 - i; j++) {
-                if (a[j] > a[j + 1]) {
-                    int temp = a[j];
-                    a[j] = a[j + 1];
-                    a[j + 1] = temp;
+    public void canEat(int  allEmpty) {
+        int canReplace = 0;//可以喝到的饮料
+        //0和1是换不了饮料了 结束循环
+        while (!(allEmpty == 0 || allEmpty == 1)) {
+            //如果是2 可以换一瓶 +1
+            if (allEmpty == 2) {
+                canReplace = canReplace + 1;
+                break;
+            } else {
+                int a = allEmpty / 3;//喝剩下的空瓶 以及可以喝的汽水
+                canReplace += a;
+                allEmpty = a + (allEmpty - a * 3);//喝剩下的瓶子
+            }
+        }
+        System.out.println(canReplace);
+    }
+
+
+    public int[] twoSum(int[] nums, int target) {
+        int x = -1,y=-1;
+        for(int i=0;i<nums.length-1;i++){
+            for(int j=i+1;j<nums.length;j++){
+                if(nums[i]+nums[j] == target){
+                    x=i;
+                    y=j;
                 }
             }
         }
-
-        for (int i : a) {
-            System.out.println(i);
-        }
+       if(x==-1 && y==-1){
+           return null;
+       }
+        int[] a = {x,y};
+        System.out.println(x+"::::"+y);
+        return a;
     }
 
-
-    private void rejectStrategy(){
-
-        System.out.println(Runtime.getRuntime().availableProcessors());
-        ExecutorService poolExecutor = new ThreadPoolExecutor(
-                2,
-                5,
-                0L,
-                TimeUnit.SECONDS,
-                new LinkedBlockingQueue<Runnable>(3),
-                Executors.defaultThreadFactory(),
-                new ThreadPoolExecutor.CallerRunsPolicy());
-
-        try {
-            for (int i = 1; i <= 9 ; i++) {
-                poolExecutor.execute(()->{
-                    System.out.println(Thread.currentThread().getName()+"：办理业务");
-                });
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            poolExecutor.shutdown();
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        String a="",b="";
+        while(l1 !=null){
+            a= a+l1.val;
+        } while(l2 !=null){
+            b= b+l2.val;
+            ListNode next = l2.next;
         }
+        int i = Integer.parseInt(a) + Integer.parseInt(b);
+
+        return null;
     }
-
-
 }
+
+ class ListNode {
+      int val;
+      ListNode next;
+      ListNode() {}
+      ListNode(int val) { this.val = val; }
+      ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+  }

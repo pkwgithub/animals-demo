@@ -1,7 +1,7 @@
 package com.animals.animalsdemo.allService.inService.user.impl;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+//import com.baomidou.mybatisplus.core.toolkitMa.StringUtils;
 import com.animals.animalsdemo.allService.inService.user.UserInService;
 import com.animals.animalsdemo.dbdo.UserDO;
 import com.animals.animalsdemo.domain.query.user.PageUserInfoQuery;
@@ -16,6 +16,7 @@ import com.animals.animalsdemo.model.factory.user.UserModelFactory;
 import com.animals.animalsdemo.model.user.UserModel;
 import com.animals.animalsdemo.exception.BusinessException;
 import com.animals.animalsdemo.Enum.UserFlgEnum;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
  * @author pankewei
  * @date 2021/8/5
  */
-public class UserInServiceImpl implements UserInService {
+public class UserInServiceImpl implements UserInService{
     @Autowired
     private UserDoMapper userDoMapper;
 
@@ -119,5 +120,9 @@ public class UserInServiceImpl implements UserInService {
     public List<PageUserInfoRespDTO> getUserPageInfo(PageUserInfoQuery pageUserInfoQuery) {
         List<UserDO> userDOList = userDoMapper.getUserPageInfo(UserModelFactory.userCommonPageToModel(pageUserInfoQuery));
         return userDOList.stream().map(UserModelFactory::toPageResp).collect(Collectors.toList());
+    }
+
+    public  void  addPankw(){
+        System.out.println("111");
     }
 }

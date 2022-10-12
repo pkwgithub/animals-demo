@@ -26,6 +26,19 @@ public class SingletonDemo {
                 SingletonDemo.getInstance();
             },String.valueOf(i)).start();
         }
+        for(int i = 0;i<10;i++)
+        {
+            new Thread(() -> {
+
+            }, String.valueOf(i)).start();
+        }
+
+        for (int i = 0; i < 10; i++) {
+            new Thread(() -> {
+
+            }, String.valueOf(i)).start();
+        }
 
     }
+
 }
