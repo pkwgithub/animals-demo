@@ -25,16 +25,16 @@ public class Test {
 //        System.out.println(gongjijin.add(yanglaobaoxian).add(yiliaobaoxian).add(shiyebaoxian));
 
         List  list = new ArrayList();
+        List list2 = new ArrayList();
         list.add("1");
         list.add("2");
         list.add("3");
         list.add("4");
         list.add("5");
         list.add(2,"潘柯伟");
-       list.forEach(x->{
-           System.out.println(x);
-               }
-       );
+        list2.add(list);
+        System.out.println(list2);
+
 
     }
 
